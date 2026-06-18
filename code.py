@@ -210,29 +210,73 @@ if "started" not in st.session_state:
 # ══════════════════════════════════════════════════════════════════════════════
 
 if not st.session_state.started:
-    st.markdown("""
-    <div style='text-align:center; padding: 40px 20px 20px 20px;'>
-        <div style='font-size: 5em;'>🏆</div>
-        <h1 style='font-size: 3em; color: #ffd700 !important; text-shadow: 2px 2px 8px rgba(0,0,0,0.8);'>
+    import base64
+    try:
+        with open("yphqak29xt4.jpg", "rb") as f:
+            img_b64 = base64.b64encode(f.read()).decode()
+        img_css = f"data:image/jpeg;base64,{img_b64}"
+    except FileNotFoundError:
+        img_css = ""
+
+    st.markdown(f"""
+    <style>
+    [data-testid="stHeader"] {{ display: none !important; }}
+    [data-testid="stSidebar"] {{ display: none !important; }}
+    .stApp::before {{ display: none !important; }}
+    .stApp::after {{ display: none !important; }}
+    .stApp {{
+        background-image: url("{img_css}") !important;
+        background-size: cover !important;
+        background-position: center center !important;
+        background-repeat: no-repeat !important;
+        background-attachment: fixed !important;
+        background-color: #000 !important;
+    }}
+    .welcome-overlay {{
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0, 0, 0, 0.50);
+        z-index: 0;
+        pointer-events: none;
+    }}
+    .welcome-content {{
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        padding: 80px 20px 20px 20px;
+    }}
+    div[data-testid="stButton"] > button {{
+        font-size: 1.4em !important;
+        padding: 18px 48px !important;
+        background: linear-gradient(135deg, #c9a227, #ffd700) !important;
+        color: #1a0a00 !important;
+        border: none !important;
+        border-radius: 50px !important;
+        font-weight: 900 !important;
+        letter-spacing: 2px !important;
+        box-shadow: 0 6px 30px rgba(0,0,0,0.6) !important;
+    }}
+    div[data-testid="stButton"] > button:hover {{
+        transform: scale(1.05) !important;
+        background: linear-gradient(135deg, #ffd700, #f0d060) !important;
+    }}
+    </style>
+    <div class="welcome-overlay"></div>
+    <div class="welcome-content">
+        <div style="font-size:5em; filter:drop-shadow(2px 2px 8px rgba(0,0,0,0.9));">🏆</div>
+        <h1 style="font-size:3.5em; font-weight:900; color:#ffd700;
+                   text-shadow:3px 3px 12px rgba(0,0,0,0.95); letter-spacing:2px; margin:10px 0;">
             Simulador del Mundial
         </h1>
-        <p style='font-size: 1.3em; color: #b7e4c7 !important; margin-bottom: 10px;'>
-            48 equipos · 12 grupos · ¡Simula tu torneo!
+        <p style="font-size:1.3em; color:#ffffff;
+                  text-shadow:1px 1px 6px rgba(0,0,0,0.9); margin-bottom:50px;">
+            48 equipos &nbsp;·&nbsp; 12 grupos &nbsp;·&nbsp; ¡Simula tu torneo!
         </p>
     </div>
     """, unsafe_allow_html=True)
 
-    # Trofeo de la World Cup via URL pública
-    col1, col2, col3 = st.columns([1, 2, 1])
+    col1, col2, col3 = st.columns([1.5, 1, 1.5])
     with col2:
-        st.image(
-            "yphqak29xt4.jpg",
-            caption="Trofeo FIFA World Cup",
-            use_container_width=True,
-        )
-
-        st.markdown("<br>", unsafe_allow_html=True)
-
         if st.button("⚽  EMPEZAR SIMULACIÓN  ⚽", use_container_width=True):
             st.session_state.started = True
             st.rerun()
