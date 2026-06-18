@@ -226,7 +226,7 @@ if not st.session_state.started:
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
         st.image(
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/FIFA_World_Cup_Trophy_2010.jpg/800px-FIFA_World_Cup_Trophy_2010.jpg",
+            "yphqak29xt4.jpg",
             caption="Trofeo FIFA World Cup",
             use_container_width=True,
         )
